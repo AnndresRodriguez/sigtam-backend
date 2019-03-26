@@ -34,7 +34,7 @@ module.exports = {
       },
 
       birthDate:{
-        type: Sequelize.DATE
+        type: Sequelize.STRING
       },
 
       roleId:{

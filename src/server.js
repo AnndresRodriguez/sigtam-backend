@@ -3,8 +3,9 @@ import morgan from "morgan";
 import cors from "cors";
 import db from "./config/database";
 import routesAuth from "./routes/auth";
-import routesAdmin from "./routes/roles";
-import bodyParser from 'body-parser'
+import routesRoles from "./routes/roles";
+import routesUsers from './routes/users';
+import bodyParser from 'body-parser';
 
 const app = express();
 
@@ -40,8 +41,8 @@ app.use(express.json());
 
 //Routes
 app.use(routesAuth);
-app.use(routesAdmin);
-
+app.use(routesRoles);
+app.use('/usuarios', routesUsers);
 //Static Files
 
 //Listening server
