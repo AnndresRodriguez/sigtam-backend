@@ -1,66 +1,53 @@
 import { Router } from "express";
 const router = Router();
-const models = require("../models");
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const formatDate = require('../services/util').default
+const adapter = new FileSync('db.json')
+const db = low(adapter)
 
-router.get("/", async (req, res, next) => {
-    const roles = await models.role.findAll({
-        attributes: ['name', 'createdAt', 'updatedAt']
-    }
-  );
+router.get("/", (req, res, next) => {
+  
+  const roles = db.getState()
   res.json(roles);
 });
 
-router.get("/:id", async (req, res, next) => {
-  const role =  await models.role.findAll({
-    where: {
-      id: req.params.id
-    }
-  });
-  res.json(role);
+router.get("/:id", (req, res, next) => {
+  
+  const roles = db.get('roles')
+  .find({ id: req.params.id })
+  .value()
+  res.json(roles)
 });
 
-router.post("/add", async (req, res, next) => {
-    let dataAdmin = req.body;
+router.post("/add", (req, res, next) => {
   
-    await models.role.create({
-        name: dataAdmin.name
-      })
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
-  
-    res.status(200).json({
-      inserted: true
-    });
+     const data = db.get('roles')
+    .push(req.body)
+    .last()
+    .assign({ createdAt: formatDate.date(), createdHour: formatDate.hour() })
+    .write()
+    
+    res.json(data)
+   
   });
 
 router.put("/:id", async (req, res) => {
-    await models.role.update(
-    {
-      name: req.body.newName
-    },
-    {
-      where: {
-        id: req.params.id
-      }
-    }
-  );
-  res.json({
-    status: "Role updated"
-  });
+  
+  const roles = db.get('roles')
+  .find({ id: req.params.id })
+  .assign(req.body)
+  .write()
+  res.json(roles)
+  
 });
 
 router.delete("/:id", async (req, res, next) => {
 
-   await models.role.destroy({
-        where:{
-            id: req.params.id
-        }
-    })
-
-    res.json({
-        status:"Role Deleted"
-    })
-
+    const roles = db.get('roles')
+    .remove({id: req.params.id})
+    .write()
+    res.json(roles)
 
 });
 

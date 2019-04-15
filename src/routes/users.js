@@ -1,55 +1,28 @@
 import { Router } from "express";
 const router = Router();
-const models = require("../models");
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
+const formatDate = require('../services/util').default
+const adapter = new FileSync('db.json')
+const db = low(adapter)
 
 router.get("/admin", async (req, res, next) => {
-  const users = await models.User.findAll({
-    where: {
-      roleId: 1
-    }
-  });
-
+  const users = null
   res.json(users);
 });
 
-router.get("/mecanicos", async (req, res, next) => {
-  const users = await models.User.findAll({
-    where: {
-      roleId: 2
-    }
-  });
-  res.json(users);
+router.get("/mecanicos", (req, res, next) => {
+  const mechanics = db.get('mecanicos')
+  res.json(mechanics);
 });
 
 router.get("/cajeros", async (req, res, next) => {
-  const users = await models.User.findAll({
-    where: {
-      roleId: 2
-    }
-  });
-
+  const users = null
   res.json(users);
 });
 
 router.post("/agregar-usuario", async (req, res, next) => {
 
-    await models.User.create({
-      document: req.body.documentUser,
-      email: req.body.emailUser,
-      password: req.body.passwordUser,
-      firstName: req.body.firstNameUser,
-      lastName: req.body.lastNameUser,
-      numberMobile: req.body.numberMobileUser,
-      birthDate: req.body.birthDateUser,
-      roleId: req.body.roleIdUser
-    })
-    .then(response => {
-      res.status(200).json({
-        inserted: true
-      });
-    // console.log(res);
-    })
-    .catch(err => console.log(err));
 });
 
 export default router;
