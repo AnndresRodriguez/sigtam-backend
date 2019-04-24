@@ -19,8 +19,7 @@ const vehiculo = new Schema({
     anio: {type: String, default: "No registrado" },
     color: {type: String, default: "No registrado" },
     motor: {type: String, default: "No registrado" },
-    marcallantas: {type: String, default: "No registrado" },
-    llantaRespuesto: {type: Boolean, default: false }
+    marcallantas: {type: String, default: "No registrado" }
 })
 
 

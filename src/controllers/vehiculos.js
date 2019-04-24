@@ -20,13 +20,6 @@ router.put("/:id", async (req, res) => {
   });
 });
 
-router.post("/resetid", async (req, res) => {
-
- res.json({
-  resetid: true, 
- })
-   
-});
 
 router.post("/", async (req, res) => {
 
@@ -37,6 +30,22 @@ await vehiculo.save();
   archived: true,
  })
    
+});
+
+router.post("/resetid", async (req, res) => {
+
+ res.json({
+  resetid: true, 
+ })
+   
+});
+
+router.delete("/:id", async (req, res) => {
+
+  await Vehiculos.findOneAndDelete({ idUser: req.params.id })
+  res.json({
+    removed:true
+  });
 });
   
   // router.post("/addmany", async (req, res, next)=>{
