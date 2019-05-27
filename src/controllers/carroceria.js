@@ -21,11 +21,13 @@ router.get('/:id', async (req, res) => {
 //Almacenar Carroceria
 router.post("/", async (req, res) => {
   const carroceria = new Carroceria(req.body);
+  // const carroceria  = new Carroceria({ "id" : 15.0, "nombre" : "Nuevo"})
   await carroceria.save();
   res.json({
     archived: true
   });
 });
+
 
 //Editar Carroceria
 router.put("/:id", async (req, res) => {

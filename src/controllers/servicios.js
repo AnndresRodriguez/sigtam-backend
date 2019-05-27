@@ -3,9 +3,11 @@ const router = express.Router();
 const Servicio = require("../models/model-servicios");
 
 router.get("/", async (req, res) => {
-    const servicios = await Servicio.find()
+    const servicios = await Servicio.find({}, {id:true, nombre:true, _id:false})
     res.json(servicios);
   });
+
+
   
   // router.post("/addmany", async (req, res, next)=>{
   //   Servicio.insertMany([

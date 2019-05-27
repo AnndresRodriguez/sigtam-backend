@@ -66,7 +66,7 @@ app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3000);
 
 //Database
-mongoose.connect("mongodb://localhost/mecanicapp" , {useNewUrlParser: true}) 
+mongoose.connect("mongodb://localhost/sigtam" , {useNewUrlParser: true}) 
 .then(db => console.log('Connection established'))
 .catch(err => console.log(err));
 //Connection Private

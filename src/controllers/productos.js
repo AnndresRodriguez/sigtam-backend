@@ -13,9 +13,72 @@ router.post("/all", async (req, res) => {
  });
 
 router.post("/all/:id", async (req, res) => {
-    const marcas = await Productos.find({ id: `${req.params.id}` }, { productos:true, _id:false});
-    res.json(marcas);
+   
+    const marcas = await Productos.find({ id: `${req.params.id}` }, { productos:true, nombre:true, _id:false});
+    res.json({
+        allproductos: marcas[0].productos.reverse(),
+        nombreCategoria: marcas[0].nombre
+    });
  });
+
+router.post("/products/:id", async (req, res) => {
+    const marcas = await Productos.find({ id: `${req.params.id}` }, { productos:true, _id:false});
+    res.json(marcas[0].productos.length);
+ });
+
+router.post("/add", async (req, res) => {
+
+	const typeProduct = await Productos.findOne({id: req.body.id})
+	typeProduct.productos.push(req.body.product[0])
+	typeProduct.save()
+    res.json({
+ 	 archived: true
+    })
+ });
+
+//Editar Producto
+ router.put("/:id", async (req, res) => {
+ 
+  console.log(req.body)
+  let category = parseInt(req.params.id)
+  let idProduct = parseInt(req.body.id) 
+
+  Productos.updateOne({id: req.params.id, "productos.id": req.body.id }, {
+
+        $set: {
+                "productos.$.nombre": req.body.nombre,
+                "productos.$.marca": req.body.marca,
+                "productos.$.unidadDeMedida": req.body.unidadDeMedida,
+                "productos.$.cantidadEnStock": req.body.cantidadEnStock,
+                "productos.$.precioCompra": req.body.precioCompra,
+                "productos.$.precioVenta": req.body.precioVenta, 
+         }
+
+   })
+  
+ 
+  res.json({
+    updated: true
+  });
+});
+
+
+
+//Eliminar Producto
+router.delete("/:id", async (req, res) => {
+ 
+let category = parseInt(req.params.id) 
+let idProduct = parseInt(req.query.idProductToDelete) 
+
+
+Productos.update({ id: category }, { $pull: { productos: { id: idProduct } }}, { safe: true, multi:true });
+
+
+  res.json({
+    deleted: true
+  });
+
+});
 
 // router.post("/addmany", async (req, res, next)=>{
 //     Productos.insertMany([
