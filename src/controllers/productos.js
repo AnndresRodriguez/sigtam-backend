@@ -70,10 +70,11 @@ router.delete("/:id", async (req, res) => {
 let category = parseInt(req.params.id) 
 let idProduct = parseInt(req.query.idProductToDelete) 
 
+console.log(category)
+console.log(idProduct)
+
 
 Productos.update({ id: category }, { $pull: { productos: { id: idProduct } }}, { safe: true, multi:true });
-
-
   res.json({
     deleted: true
   });
