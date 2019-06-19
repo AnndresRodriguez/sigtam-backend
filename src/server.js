@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const uuid = require("uuid/v4");
+require('dotenv').config();
 
 // Routes Controllers
 const adminController = require("./controllers/admin");
@@ -66,7 +67,8 @@ app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3000);
 
 //Database
-mongoose.connect("mongodb://localhost/sigtam" , {useNewUrlParser: true}) 
+mongoose.connect(process.env.PASSWORD_DB , {dbName: 'sigtam', useNewUrlParser: true}) 
+//mongoose.connect("mongodb://localhost/sigtam" , {useNewUrlParser: true}) 
 .then(db => console.log('Connection established'))
 .catch(err => console.log(err));
 //Connection Private

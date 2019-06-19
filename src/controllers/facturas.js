@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
             fecha: 1,
             hora: 1,
             precioTotal: 1,
-            productos: 1,
+            productosAsociados: 1,
             responsableNombre : "$factura_mecanico.nombre",
             responsableApellidos: "$factura_mecanico.apellidos",
             nombreCliente: "$factura_cliente.nombre",
@@ -45,52 +45,35 @@ router.get("/", async (req, res) => {
 
 
 
-// router.post("/addmany", async (req, res, next)=>{
-//     Facturas.insertMany([
-//         {
-//             "id" : 1,
-//             "vehiculo" : [ 
-//                 {
-//                     "marca" : "Chevrolet",
-//                     "modelo" : "Camaro",
-//                     "placa" : "MIQ-123",
-//                     "kilometraje" : "2700",
-//                     "anio" : "2015",
-//                     "color" : "Gris"
-//                 }
-//             ],
-//             "propietario" : [ 
-//                 {
-//                     "id" : 1,
-//                     "nombre" : "Diana Carolina",
-//                     "apellidos" : "Lopez Bermont",
-//                     "cedula" : "1090848821",
-//                     "email" : "dianacarolinalblob@gmail.com",
-//                     "numeroCelular" : "3112199220"
-//                 }
-//             ],
-//             "tipo" : "Mantenimiento",
-//             "parte" : "Chasis",
-//             "descripcion" : "Cambio de Aceite",
-//             "precioManoObra" : 43000,
-//             "fecha" : "07/04/2019",
-//             "hora" : "17:45",
-//             "productosAsociados" : [ 
-//                 {
-//                     "id" : 7,
-//                     "nombre" : "Aceite de motor 5W-30",
-//                     "marca" : "SHELL",
-//                     "unidadDeMedida" : "1 Litro",
-//                     "precioVenta" : 18800,
-//                     "cantidad" : 1
-//                 }
-//             ],
-//             "precioTotal" : 68100,
-//             "iva" : 19,
-//             "totalAPagar" : 81039
-//         }
-//     ])
-//     res.json({archived:true})
-// })
+router.post("/addmany", async (req, res, next)=>{
+    Facturas.insertMany([
+        {
+            "id" : 1,
+            "idMecanico": 1,
+            "idVehiculo": 1,
+            "idPropietario": 1,
+            "tipo" : "Mantenimiento",
+		    "parte" : "Chasis",
+		    "descripcion" : "Cambio de Aceite",
+		    "precioManoObra" : 43000.0,
+		    "fecha" : "07/04/2019",
+		    "hora" : "17:45",
+		    "productosAsociados" : [ 
+		        {
+		            "id" : 7.0,
+		            "nombre" : "Aceite de motor 5W-30",
+		            "marca" : "SHELL",
+		            "unidadDeMedida" : "1 Litro",
+		            "precioVenta" : 18800.0,
+		            "cantidad" : 1.0
+		        }
+		    ],
+		    "precioTotal" : 68100.0,
+		    "iva" : 19.0,
+		    "totalAPagar" : 81039.0
+		        }
+    ])
+    res.json({archived:true})
+})
 
 module.exports = router

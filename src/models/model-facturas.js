@@ -3,8 +3,9 @@ const Schema  = mongoose.Schema;
 
 const factura = new Schema({
     id: Number,
-    vehiculo: Array,
-    propietario: Array,
+    idMecanico: Number,
+    idPropietario: Number,
+    idVehiculo: Number,
     tipo: String,
     parte: String,
     descripcion: String,
