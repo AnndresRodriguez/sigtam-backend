@@ -22,7 +22,7 @@ const productosController = require("./controllers/productos");
 const proveedoresController = require("./controllers/proveedores");
 const serviciosController = require("./controllers/servicios");
 const vehiculosController = require("./controllers/vehiculos");
-require('dotenv').config()
+require('dotenv').config();
 
 //------------------------------Multer-----------------------------------------
 
@@ -67,19 +67,17 @@ app.use(bodyParser.json());
 app.set("port", process.env.PORT || 3000);
 
 //Database Local
-// mongoose.connect("mongodb://localhost/sigtam", { useNewUrlParser: true })
+
+// mongoose.connect("mongodb://localhost/sigtam", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 //     .then(db => console.log('Connection established'))
 //     .catch(err => console.log(err));
 
 //Database Production
-const MongoClient = require('mongodb').MongoClient;
-const uri = `${ process.env.PASSWORD_DB }`;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-    const collection = client.db("sigtam")
-        // perform actions on the collection object
-    client.close();
-});
+
+mongoose.connect(`${ process.env.PASSWORD_DB }`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+    .then(db => console.log('Connection established'))
+    .catch(err => console.log(err));
+
 
 //Connection Private
 // mongoose.connect('mongodb://AndresRodriguez:root@localhost/mecanicapp' , {useNewUrlParser: true})
