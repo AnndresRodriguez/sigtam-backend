@@ -8,6 +8,46 @@ router.get("/", async (req, res) => {
     res.json(mecanicos);
   });
 
+router.post("/insertMany", async (req, res) => {
+  Mecanicos.updateOne(
+
+    { "nombre" : "Nuevo2" },
+    { $set: {
+    
+      "id" : 4.0,
+      "nombre" : "El nuevo",
+      "apellidos" : "Carrillo Rodriguez",
+      "cedula" : "1090371171",
+      "edad" : 35.0,
+      "email" : "andres@gmail.com",
+      "numeroCelular" : "3101546734",
+      "anioNacimiento" : "11-05-1995",
+      "aniosExperiencia" : "3",
+      "empresasAnteriores" : [ 
+          {
+              "nombre" : "General Motors",
+              "meses" : "12"
+          }, 
+          {
+              "nombre" : "Mecanica los Andes",
+              "meses" : "6"
+          }, 
+          {
+              "nombre" : "Mecanica Central",
+              "meses" : "18"
+          }
+      ],
+      "salario" : 1228116.0
+  } },
+    { upsert: true }
+
+  );
+  res.json({
+    archived: true
+  })
+
+})
+
 //Obtener Mecanico por id
 router.get('/:id', async (req, res) => {
   const mecanico = await Mecanicos.findById(req.params.id)
