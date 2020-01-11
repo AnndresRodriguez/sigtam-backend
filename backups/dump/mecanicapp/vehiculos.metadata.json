@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"mecanicapp.vehiculos"},{"v":2,"unique":true,"key":{"id":1},"name":"id_1","ns":"mecanicapp.vehiculos","background":true}],"uuid":"d958b1d3a87a4644a1100581b049575c"}

@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"exampleStructureBackend.users"},{"v":2,"unique":true,"key":{"email":1},"name":"email_1","ns":"exampleStructureBackend.users","background":true}],"uuid":"42ae700e68044fd9ace29a09869ac742"}
