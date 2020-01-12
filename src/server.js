@@ -28,28 +28,28 @@ require('dotenv').config();
 
 const storage = multer.diskStorage({
 
-    destination: path.join(__dirname, 'files/uploads/'),
-    filename: (req, file, cb) => {
-        cb(null, uuid() + path.extname(file.originalname).toLowerCase());
-    }
+	destination: path.join(__dirname, 'files/uploads/'),
+	filename: (req, file, cb) =>{
+		cb(null, uuid() + path.extname(file.originalname).toLowerCase());
+	}
 
 });
 
 const upload = app.use(multer({
-    storage,
-    dest: path.join(__dirname, 'files/uploads/'),
-    limits: { filesize: 3000000 },
-    fileFilter: (req, file, cb) => {
-        const fileTypes = /pdf|doc|docx/;
-        const mimetype = fileTypes.test(file.mimetype);
-        const extname = fileTypes.test(path.extname(file.originalname));
+	storage,
+	dest: path.join(__dirname, 'files/uploads/'),
+	limits: {filesize: 3000000},
+	fileFilter: (req, file, cb) => {
+		const fileTypes = /pdf|doc|docx/;
+		const mimetype = fileTypes.test(file.mimetype);
+		const extname = fileTypes.test(path.extname(file.originalname));
 
-        if (mimetype && extname) {
-            return cb(null, true)
-        }
+		if(mimetype && extname){
+			return cb(null, true)
+		}
 
-        cb("Error: los archivos deben ser pdf, doc, docx")
-    }
+		cb("Error: los archivos deben ser pdf, doc, docx")
+	}
 }).single('file'))
 
 //--------------------------------------------------------------------------------
@@ -59,26 +59,27 @@ const upload = app.use(multer({
 app.use(cors());
 
 //Bodyparser
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 
 //Settings Port
 app.set("port", process.env.PORT || 3000);
 
-//Database Local
+//Database
 
-// mongoose.connect("mongodb://localhost/sigtam", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-//     .then(db => console.log('Connection established'))
-//     .catch(err => console.log(err));
+// const MongoClient = require(‘mongodb’).MongoClient;
+// const uri = "mongodb+srv://Andres:adminmongo@cluster0-dpkbr.mongodb.net/test?retryWrites=true&w=majority";
+// const client = new MongoClient(uri, { useNewUrlParser: true });
+// client.connect(err => {
+//   const collection = client.db("sigtam")
+//   // perform actions on the collection object
+//   client.close();
+// });
 
-//Database Production
-
-mongoose.connect(`${ process.env.PASSWORD_DB }`, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-    .then(db => console.log('Connection established'))
-    .catch(err => console.log(err));
-
-
+mongoose.connect("mongodb+srv://Andres:MjMNqJGxxp8JaTEK@cluster0-dpkbr.mongodb.net/test?retryWrites=true&w=majority" , {dbName: 'mecanicapp', useNewUrlParser: true, useUnifiedTopology: true}) 
+.then(db => console.log('Connection established'))
+.catch(err => console.log(err));
 //Connection Private
 // mongoose.connect('mongodb://AndresRodriguez:root@localhost/mecanicapp' , {useNewUrlParser: true})
 
@@ -109,5 +110,5 @@ app.use('/vehiculos', vehiculosController);
 
 //Listening server
 app.listen(app.get("port"), () => {
-    console.log("Server on port", app.get("port"));
+  console.log("Server on port", app.get("port"));
 });

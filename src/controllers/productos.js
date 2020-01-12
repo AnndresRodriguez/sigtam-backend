@@ -28,11 +28,11 @@ router.post("/products/:id", async (req, res) => {
 
 router.post("/add", async (req, res) => {
 
-	const typeProduct = await Productos.findOne({id: req.body.id})
-	typeProduct.productos.push(req.body.product[0])
-	typeProduct.save()
+  const typeProduct = await Productos.findOne({id: req.body.id})
+  typeProduct.productos.push(req.body.product[0])
+  typeProduct.save()
     res.json({
- 	 archived: true
+   archived: true
     })
  });
 

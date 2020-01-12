@@ -6,4 +6,4 @@ const formatDate = {
 
 }
 
-export default formatDate;ter
+export default formatDate;

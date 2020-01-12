@@ -3,8 +3,7 @@ const Schema  = mongoose.Schema;
 
 const carroceria = new Schema({
     id: Number,
-    nombre: String,
-    precio: Number
+    nombre: String
 });
 
 module.exports = mongoose.model('carrocerias', carroceria);
