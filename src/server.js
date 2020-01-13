@@ -77,7 +77,7 @@ app.set("port", process.env.PORT || 3000);
 //   client.close();
 // });
 
-mongoose.connect("mongodb+srv://Andres:MjMNqJGxxp8JaTEK@cluster0-dpkbr.mongodb.net/test?retryWrites=true&w=majority" , {dbName: 'mecanicapp', useNewUrlParser: true, useUnifiedTopology: true}) 
+mongoose.connect( `${ process.env.PASSWORD_DB }`, {dbName: 'mecanicapp', useNewUrlParser: true, useUnifiedTopology: true}) 
 .then(db => console.log('Connection established'))
 .catch(err => console.log(err));
 //Connection Private
