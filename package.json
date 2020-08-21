@@ -20,7 +20,7 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-flow": "^7.8.0",
     "@babel/register": "^7.8.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "braces": "^2.3.2",
     "consign": "^0.1.6",
